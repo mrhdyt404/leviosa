@@ -1,0 +1,450 @@
+sistem personal asisten sebagai asisten pribadi untuk mengurus jadwal harian acara pekerjaan dll yang dapat di kostum sesuai kebutuhan pribadi untuk pengaturan jadwal optimal efisien dan konsisten agar meningkatkan produktifitas harian terintegrasi dengan ai asistant dan akumulasi/evaluasi mingguan bulanan tahunan terintegrasi juga dengan kalender aktif realtime indonesia dan prediksi cuaca untuk ai asistent memberikan saran perubahan jadwal dan meminta konfirmasi, lengkap dengan fitur pengingat / notifikasi via whatsaap, pengingat/notif jadwal h-7 h-1 dan h-1 jam hari H / acara dari jadwal yang sudah di atur pengguna authentikasi menggunakan akun google atau mendaftarkan diri dengan mengisi data nama username password dan opsi untuk autentikasi cepat dengan autentikasi wajah (Face Authentication)
+
+AI Personal Assistant & Smart Productivity Management System. Saya membayangkannya bukan sekadar aplikasi kalender atau to-do list, melainkan asisten pribadi digital yang mampu memahami rutinitas, mengelola waktu, memprediksi kendala, memberikan rekomendasi, dan mengevaluasi produktivitas penggunanya.
+
+Sistem ini idealnya bekerja secara proaktif: bukan hanya mengingatkan pengguna tentang jadwal, tetapi juga membantu menentukan apa yang sebaiknya dilakukan, kapan waktu terbaik untuk melakukannya, dan kapan jadwal perlu disesuaikan.
+
+Berikut rancangan konsep yang saya rekomendasikan.
+
+# 1. Konsep utama aplikasi
+
+[rivva: AI Productivity Assistant Syncing Work & Energy](https://images.openai.com/static-rsc-4/ulj9c-Q8V-1iu9u9--f8EEuTaHfUwZKCQSOA6gETvzJw1Pwd49G1sZ_oOWssTN9XkyXHQzDCtaxzeW2BK3j4YA3E1ik5-6A-LCzT9WvKYKZQ6oCQ7G87iM_J_Zqx24UadoGKdaiaHIt8epOXgncJod4Oj0Ix-Cjia68QfNH5Qik?purpose=inline)
+
+[rivva.app](https://www.rivva.app/?utm_source=chatgpt.com)
+
+# PERSONAL AI ASSISTANT
+
+Smart Productivity Ecosystem
+
+Your intelligent assistant for a more organized, productive, and balanced life.
+
+Satu platform terintegrasi untuk mengelola:
+
+- Jadwal harian, mingguan, bulanan, dan tahunan.
+- Pekerjaan, proyek, tugas, dan aktivitas pribadi.
+- Pengingat otomatis melalui WhatsApp.
+- Kalender nasional Indonesia dan hari libur.
+- Prediksi cuaca dan kondisi lingkungan.
+- AI yang memberikan rekomendasi pengoptimalan jadwal.
+- Evaluasi produktivitas dan perkembangan pengguna.
+
+# 2. Modul dan fitur utama
+
+## A. Smart Schedule Management
+
+[Calendar Dashboard Design Concept by Dmitry Lauretsky for Ronas IT | UI/UX Team on Dribbble](https://images.openai.com/static-rsc-4/SZbCktbhDBrgldPmZSna_FEz-V4tM6Ag_VGDX4Tz5t6ahY4x2ZWp98CYBCO73AVENe1tJPk_rQ3PqtZchd8TCPyLMuSITKrMmeoTOaq20FDIHDoV4optfMbW2OYv-T-8Jeyt9ieBCqvYQixMpd31kWNPKmdmtKUPDozg5ec8-O4?purpose=inline)
+
+[dribbble.com](https://dribbble.com/shots/23668161-Calendar-Dashboard-Design-Concept?utm_source=chatgpt.com)
+
+Pusat pengelolaan seluruh aktivitas pengguna.
+
+Fitur:
+
+- Daily Planner.
+- Weekly Planner.
+- Monthly Planner.
+- Yearly Planner.
+- Custom Event.
+- Task Management.
+- Project Management.
+- Recurring Schedule.
+- Priority Management.
+- Time Blocking.
+- Deadline Tracking.
+- Drag-and-drop jadwal.
+
+Setiap jadwal dapat memiliki konfigurasi:
+
+| Parameter      | Keterangan                             |
+| -------------- | -------------------------------------- |
+| Nama aktivitas | Nama pekerjaan/acara                   |
+| Kategori       | Pekerjaan, pribadi, kuliah, dll.       |
+| Tanggal        | Tanggal kegiatan                       |
+| Waktu          | Mulai dan selesai                      |
+| Prioritas      | Rendah, sedang, tinggi, urgent         |
+| Lokasi         | Online atau offline                    |
+| Estimasi       | Perkiraan durasi                       |
+| Persiapan      | Waktu persiapan sebelum kegiatan       |
+| Catatan        | Informasi tambahan                     |
+| Pengingat      | H-7, H-1, H-1 jam                      |
+| Status         | Pending, ongoing, completed, cancelled |
+
+Pengguna juga dapat membuat kategori sendiri sesuai kebutuhan.
+
+## B. AI Personal Assistant
+
+[I Built This Personal AI Dashboard That Talks to Me on WhatsApp](https://images.openai.com/static-rsc-4/zkWbEsFkU4zP-UudFdgaAiFluT_zuYyXr4H3fHxGAjKAxbjlnHWegR6vZFAc-2txHE9dvjmi9m_esqpy2wzhWLWROWbxn0nymjaZ-dsnfGVBX9nXKOmRVbW28pUDD67XLx4BVgIZXG7nxRQHpYRReJMYn08XLpTPiV76vjU_wsI?purpose=inline)
+
+[newsletters.ai](https://newsletters.ai/p/personal-ai-dashboard-with-lovable?utm_source=chatgpt.com)
+
+Ini merupakan fitur utama yang membedakan aplikasi dari kalender konvensional.
+
+AI memiliki pemahaman terhadap:
+
+- Jadwal yang sudah dibuat.
+- Kebiasaan dan rutinitas pengguna.
+- Tingkat prioritas pekerjaan.
+- Deadline yang mendekat.
+- Aktivitas yang belum diselesaikan.
+- Riwayat produktivitas.
+- Kondisi cuaca.
+- Kalender nasional Indonesia.
+
+Contoh interaksi pengguna:
+
+Pengguna:
+
+> Besok saya ingin mengerjakan laporan SIMOLI selama 3 jam, olahraga 1 jam, dan belajar pemrograman 2 jam.
+
+AI:
+
+> Baik! Saya akan menyusun jadwal besok dengan mempertimbangkan aktivitas yang sudah terdaftar.
+
+AI kemudian mencari waktu kosong, mempertimbangkan durasi istirahat, dan mengusulkan jadwal.
+
+Contoh lainnya:
+
+Pengguna:
+
+> Apa saja kegiatan saya hari ini?
+
+AI:
+
+> Hari ini terdapat 4 aktivitas:
+>
+> 1. 08.00 – 10.00: Pengerjaan proyek.
+> 2. 10.30 – 12.00: Meeting.
+> 3. 13.00 – 15.00: Belajar.
+> 4. 16.00 – 17.00: Olahraga.
+>
+> Terdapat jeda 30 menit sebelum meeting. Jangan lupa persiapan.
+
+AI juga harus bisa menerima perintah natural language seperti:
+
+- Tambahkan jadwal meeting hari Jumat.
+- Pindahkan pekerjaan besok ke hari Senin.
+- Buatkan jadwal produktif untuk minggu depan.
+- Evaluasi produktivitas bulan ini.
+- Apa pekerjaan saya yang belum selesai?
+- Atur ulang jadwal saya karena ada acara mendadak.
+
+## C. Smart Calendar Indonesia
+
+[Amie Calendar UX Dashboard Redesign by Saasfactor | SaaS Design Agency on Dribbble](https://images.openai.com/static-rsc-4/JsdcTwkFIdHkEgAiOSvQJSSU_Bcc0II7Jdlmz2Z7B-Zl8StlcvtfI7x2gOP090cIKT_pAPV1FACiF8ALUwU5OZLDvfhth658iNmGB4PgY3K0kuPGNJJOLnI324uWeGQoJmHNP18raIsMLFvwxeYTvNpv2wEYNpQcR_HMUA-xgHY?purpose=inline)
+
+[dribbble.com](https://dribbble.com/shots/27431387-Amie-Calendar-UX-Dashboard-Redesign?utm_source=chatgpt.com)
+
+Kalender harus terintegrasi dengan sumber kalender eksternal dan diperbarui secara berkala.
+
+Fitur:
+
+- Sinkronisasi Google Calendar.
+- Kalender nasional Indonesia.
+- Hari libur nasional.
+- Cuti bersama.
+- Hari besar nasional.
+- Kalender Hijriah.
+- Event pribadi.
+- Sinkronisasi kalender secara realtime.
+
+AI dapat memanfaatkan informasi kalender untuk menghindari penjadwalan pada hari libur atau bentrok dengan kegiatan yang sudah ada.
+
+## D. Weather Intelligence
+
+[Weather Dashboard by Yevhen Ledenov for Ledo on Dribbble](https://images.openai.com/static-rsc-4/J8nIEOk-pbRKqyxpnU9c-ftTLd2iRwuAf_wLLpxa2VkG6POyGK0R8hXC8OzW3WSbV8D7WbGr2-GWoX0Dga5tEr9CB3J2Fpg9cLGj4q0Lic3SpOxKF4JjywIiGMAldNrwq8lioxLfTeOTDxIFpBale36KepuJiFss8TUVCL6dfAA?purpose=inline)
+
+[dribbble.com](https://dribbble.com/shots/19113627-Weather-Dashboard?utm_source=chatgpt.com)
+
+Integrasi API cuaca untuk membantu AI mempertimbangkan kondisi lingkungan.
+
+Informasi:
+
+- Cuaca saat ini.
+- Prediksi cuaca per jam.
+- Prakiraan 3–7 hari.
+- Probabilitas hujan.
+- Suhu.
+- Kelembapan.
+- Kecepatan angin.
+
+Contoh:
+
+Pengguna memiliki jadwal olahraga outdoor pukul 16.00.
+
+AI mendeteksi prediksi hujan pada pukul 15.00–17.00.
+
+AI memberikan rekomendasi:
+
+Rekomendasi perubahan jadwal
+
+Potensi hujan
+
+Jadwal olahraga Anda berpotensi terganggu oleh hujan.
+
+Rekomendasi AI:
+
+- Pindahkan olahraga ke pukul 07.00.
+- Alternatif: olahraga indoor pukul 16.00.
+
+Perubahan belum diterapkan. Menunggu konfirmasi pengguna.
+
+SetujuiTolak
+
+Prinsip penting: AI tidak boleh mengubah jadwal secara sepihak. Semua perubahan harus mendapatkan persetujuan pengguna.
+
+## E. Smart Reminder & WhatsApp Notification
+
+[WhatsApp Solutions for Beauty Salons](https://images.openai.com/static-rsc-4/by4on1r1rNZIgiIPqNFDyooKQXZ6Yo0LeA3m4oyK2FZKIBmw4h9WNXjCFNmzrPbsi2gBJ5ICXRt6epVcljCTFLlGi9-moZvt8zk-Xx3wcV5yeYQirCYhWH8jdMuatZoxRFY9ZUXBEUE3r2npU1AAJwyxnOaCwZ42ZbgaEk00uUM?purpose=inline)
+
+[convrs.io](https://convrs.io/beauty-salons/?utm_source=chatgpt.com)
+
+Sistem pengingat otomatis berdasarkan konfigurasi setiap jadwal.
+
+| Waktu pengingat | Contoh                           |
+| --------------- | -------------------------------- |
+| H-7             | Pengingat persiapan awal         |
+| H-1             | Pengingat satu hari sebelumnya   |
+| H-1 jam         | Pengingat satu jam sebelumnya    |
+| Hari H          | Pengingat saat kegiatan dimulai  |
+| Custom          | Waktu pengingat sesuai kebutuhan |
+
+Contoh notifikasi:
+
+WhatsApp Reminder
+
+07.00
+
+Selamat pagi!
+
+Anda memiliki jadwal hari ini:
+
+📌 Meeting Proyek
+
+🗓 Minggu, 8 November 2026
+
+🕘 09.00 – 10.30 WIB
+
+📍 Ruang Meeting
+
+Persiapkan kebutuhan meeting Anda agar kegiatan berjalan lancar.
+
+Pengingat otomatis
+
+Gunakan WhatsApp Business Cloud API atau provider WhatsApp resmi. Untuk pengingat proaktif, perlu memperhatikan aturan template pesan WhatsApp dan persetujuan penerima.
+
+## F. Productivity Analytics & Evaluation
+
+[Clearspace — Productivity Dashboard for Focus & Balance :: Behance](https://images.openai.com/static-rsc-4/kklR4Fkpd_Ng4Ly1ufZ3w41P9MgkF7jlToIdbIDCHNv63KCRgv9IvV74SpKhI5aKcrI7J1vNJ2JnMxHpn5b2qhQfW0OJv3DqGiJwEqwQl_2mhRxMCjbbj0mngrO68GOqxQZfFBlHb_2UB4ELezNom5Actz5-qwbGE_2vz3wRF0U?purpose=inline)
+
+[behance.net](https://www.behance.net/gallery/245669781/Clearspace-Productivity-Dashboard-for-Focus-Balance?utm_source=chatgpt.com)
+
+Ini merupakan bagian penting agar pengguna tidak sekadar sibuk, tetapi bisa mengukur perkembangan produktivitas.
+
+Evaluasi harian
+
+- Jumlah pekerjaan selesai.
+- Jumlah pekerjaan tertunda.
+- Persentase pencapaian target.
+- Total waktu produktif.
+- Aktivitas yang tidak terselesaikan.
+
+Evaluasi mingguan
+
+- Konsistensi menjalankan jadwal.
+- Produktivitas berdasarkan kategori.
+- Hari paling produktif.
+- Rata-rata penyelesaian tugas.
+- Analisis penyebab pekerjaan tertunda.
+
+Evaluasi bulanan
+
+- Perbandingan produktivitas antarbulan.
+- Target yang tercapai.
+- Target yang gagal.
+- Perkembangan kebiasaan.
+- Rekomendasi perbaikan.
+
+Evaluasi tahunan
+
+- Rekap seluruh aktivitas.
+- Total jam produktif.
+- Persentase pencapaian target tahunan.
+- Perkembangan setiap kategori.
+- Evaluasi pencapaian personal.
+
+Contoh indikator:
+
+Task completion
+
+# 87%
+
+Ilustrasi pencapaian mingguan
+
+Productive hours
+
+# 32 jam
+
+Ilustrasi waktu produktif
+
+Consistency score
+
+# 91/100
+
+Ilustrasi konsistensi
+
+Overdue tasks
+
+# 3
+
+Ilustrasi pekerjaan terlambat
+
+# 3. Sistem autentikasi dan keamanan
+
+Ada tiga metode autentikasi yang dapat disediakan.
+
+| Metode              | Penjelasan                                     |
+| ------------------- | ---------------------------------------------- |
+| Google Login        | Login menggunakan akun Google                  |
+| Email & Password    | Registrasi nama, username, email, dan password |
+| Face Authentication | Autentikasi biometrik untuk akses cepat        |
+
+Untuk Face Authentication, saya merekomendasikan WebAuthn / Passkeys.
+
+Alasannya:
+
+- Bisa menggunakan Face ID atau Windows Hello.
+- Bisa menggunakan fingerprint jika tersedia.
+- Tidak perlu menyimpan foto wajah pengguna di server.
+- Verifikasi biometrik dilakukan oleh perangkat.
+- Lebih aman dibanding membuat sistem pencocokan wajah sendiri.
+
+# 4. Arsitektur sistem yang direkomendasikan
+
+Melihat kompleksitas fitur, saya menyarankan arsitektur modular agar mudah dikembangkan.
+
+## System Architecture
+
+Frontend Application
+
+Web PWA / Mobile Responsive
+
+Dashboard • Calendar • Chat AI • Analytics
+
+Backend API
+(karena project ini menggunakan Web PWA / Mobile Responsive jangan menyimpan seluruh data aktivitas pengguna di server agar tidak membenani penyimpanan server,simpan data di lokal perangkat pengguna data yang di simpan di internal server hanya data registrasi/autentikasi sesi dan log aktifitas login aktif nonaktif)
+
+golang
+
+Frontend native css + scss js(interaktif & animasi ui ux)
+
+Authentication • Schedule • Task • User • Notification
+
+Database
+
+MariaDB / MySQL
+
+Queue Worker
+
+Redis / Laravel Queue
+
+AI Engine
+
+LLM API
+
+Scheduler
+
+Laravel Scheduler
+
+External Integrations
+
+Google Calendar • Weather API • WhatsApp Cloud API • Google OAuth • Holiday API
+
+Untuk stack, Laravel 12, MariaDB, Redis, dan PWA merupakan pilihan yang realistis. Backend menangani seluruh logika bisnis, sementara AI hanya memperoleh data yang memang dibutuhkan dan memiliki izin akses.
+
+# 5. Fitur tambahan yang saya rekomendasikan
+
+Agar sistem benar-benar menjadi asisten pribadi, ada beberapa fitur yang layak ditambahkan.
+
+| Fitur                  | Fungsi                                                    |
+| ---------------------- | --------------------------------------------------------- |
+| Personal Habit Tracker | Mengelola kebiasaan harian                                |
+| Focus Mode             | Membantu pengguna fokus pada satu pekerjaan               |
+| Pomodoro Timer         | Pengelolaan waktu kerja dan istirahat                     |
+| Smart Daily Briefing   | Ringkasan aktivitas setiap pagi                           |
+| AI Weekly Review       | Evaluasi mingguan otomatis                                |
+| Goal Management        | Target jangka pendek dan panjang                          |
+| Energy Management      | Mengatur pekerjaan berdasarkan preferensi waktu produktif |
+| Conflict Detection     | Mendeteksi jadwal bertabrakan                             |
+| Buffer Time            | Menyediakan jeda antaraktivitas                           |
+| Travel Time Estimation | Memperhitungkan perjalanan ke lokasi acara                |
+
+Satu fitur yang menurut saya sangat menarik adalah Personal Productivity Learning.
+
+AI mempelajari pola produktivitas pengguna dari waktu ke waktu.
+
+Misalnya:
+
+- Pengguna biasanya produktif pada pukul 08.00–11.00.
+- Pekerjaan teknis rata-rata membutuhkan 2 jam.
+- Pengguna sering menunda pekerjaan pada malam hari.
+- Pengguna membutuhkan jeda 15–30 menit setelah meeting.
+
+Berdasarkan data tersebut, AI dapat memberikan rekomendasi jadwal yang semakin relevan.
+
+# 6. Tahapan pengembangan
+
+Saya tidak menyarankan membangun semua fitur sekaligus. Lebih baik menggunakan tahapan pengembangan berikut.
+
+| Tahap   | Fokus pengembangan                              |
+| ------- | ----------------------------------------------- |
+| Phase 1 | Authentication, profil, kalender, task, jadwal  |
+| Phase 2 | Reminder, WhatsApp, notifikasi, recurring event |
+| Phase 3 | Integrasi AI dan natural language               |
+| Phase 4 | Google Calendar dan kalender Indonesia          |
+| Phase 5 | Weather Intelligence dan smart rescheduling     |
+| Phase 6 | Productivity Analytics dan AI evaluation        |
+| Phase 7 | WebAuthn, PWA, optimasi, keamanan               |
+
+# 7. Menentukan arah produk sebelum mulai coding
+
+Ada beberapa keputusan penting yang sebaiknya ditentukan sejak awal supaya arsitektur tidak perlu dirombak ketika fitur bertambah.
+
+1\. Platform aplikasi
+
+Web Application + PWA (rekomendasi)
+
+2\. Cara kerja AI Assistant
+
+Hybrid AI – Reactive + Proactive (rekomendasi)
+
+3\. Integrasi kalender
+
+Kalender internal + Google Calendar (rekomendasi)
+
+4\. Target pengguna
+
+Multi-user – setiap orang punya akun
+
+5\. Kedalaman pengembangan
+
+MVP – fitur inti terlebih dahulu
+
+Full system – seluruh fitur dirancang sejak awal
+
+6\. Nama aplikasi leviosa :
+(Filosofi nama Leviosa
+Nama Leviosa terinspirasi dari mantra Wingardium Leviosa dalam dunia Harry Potter.
+
+Kata Leviosa berakar pada bahasa Latin levare yang berkaitan dengan mengangkat atau meringankan.
+
+Kita bisa mengembangkan filosofi tersebut menjadi tiga makna utama:
+- Lift Your Burden: Mengurangi beban mental akibat banyaknya jadwal, pekerjaan, dan tanggung jawab.
+- Elevate Your Potential: Membantu pengguna memaksimalkan potensi dan produktivitas.
+- Lighten Your Life: Membuat kehidupan sehari-hari terasa lebih ringan, terorganisasi, dan seimbang.
+Ada satu filosofi yang menurut saya sangat cocok:
+"You don't need more time. You need a smarter way to live it."
+
+Leviosa bukan bertujuan membuat seseorang terus bekerja lebih banyak, melainkan membantu seseorang menggunakan waktunya dengan lebih bermakna)
+
+
+Rekomendasi saya: mulai dengan PWA, sistem multi-user, kalender internal yang tersinkronisasi dengan Google Calendar, dan Hybrid AI.
