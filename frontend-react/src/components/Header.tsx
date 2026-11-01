@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Search, Bell, Sun, CloudSun } from 'lucide-react';
 import type { TodayCalendarResponse, WeatherResponse } from '../services/api';
 
@@ -10,13 +10,13 @@ interface HeaderProps {
   onSearch: (q: string) => void;
 }
 
-export const Header: React.FC<HeaderProps> = ({
+export const Header = ({
   todayInfo,
   weather,
   onToggleTheme,
   onOpenNotifications,
   onSearch
-}) => {
+}: HeaderProps) => {
   const [searchValue, setSearchValue] = useState('');
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {

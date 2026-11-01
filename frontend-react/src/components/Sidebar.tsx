@@ -1,4 +1,4 @@
-import React from 'react';
+
 import {
   Home,
   Calendar,
@@ -20,13 +20,13 @@ interface SidebarProps {
   onOpenCalendarModal: () => void;
 }
 
-export const Sidebar: React.FC<SidebarProps> = ({
+export const Sidebar = ({
   activeTab,
   setActiveTab,
   onOpenScheduleModal,
   onOpenWhatsAppModal,
   onOpenCalendarModal
-}) => {
+}: SidebarProps) => {
   const menuItems = [
     { id: 'dashboard', label: 'Dashboard', icon: Home, action: () => setActiveTab('dashboard') },
     { id: 'calendar', label: 'Calendar', icon: Calendar, action: onOpenCalendarModal },

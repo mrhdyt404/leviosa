@@ -1,4 +1,3 @@
-import React from 'react';
 import { Briefcase, Activity, BookOpen, BarChart3, Clock, Plus } from 'lucide-react';
 import type { ScheduleItem } from '../types';
 
@@ -8,11 +7,11 @@ interface TodayScheduleCardProps {
   onToggleStatus: (uuid: string) => void;
 }
 
-export const TodayScheduleCard: React.FC<TodayScheduleCardProps> = ({
+export const TodayScheduleCard = ({
   schedules,
   onOpenModal,
   onToggleStatus
-}) => {
+}: TodayScheduleCardProps) => {
   const getCategoryMeta = (cat: string) => {
     switch (cat) {
       case 'Pekerjaan':

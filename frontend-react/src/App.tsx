@@ -127,7 +127,7 @@ export function App() {
             setToastMessage('Anda memiliki jadwal evaluasi laporan pukul 16.00 WIB.');
             setToastVisible(true);
           }}
-          onSearch={(query) => {
+          onSearch={(query: string) => {
             if (query.trim()) {
               const filtered = schedules.filter((s) =>
                 s.title.toLowerCase().includes(query.toLowerCase())

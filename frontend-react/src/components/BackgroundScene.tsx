@@ -1,30 +1,40 @@
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 
-interface BackgroundSceneProps {
+export interface BackgroundSceneProps {
   theme?: 'night' | 'winter';
 }
 
-export const BackgroundScene: React.FC<BackgroundSceneProps> = ({ theme = 'night' }) => {
+export const BackgroundScene = ({ theme = 'night' }: BackgroundSceneProps) => {
   const mountRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const container = mountRef.current;
     if (!container) return;
 
+    let isDisposed = false;
+    let animationId = 0;
+
     // Scene, Camera, Renderer
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(
       60,
-      window.innerWidth / window.innerHeight,
+      window.innerWidth / Math.max(window.innerHeight, 1),
       0.1,
       1000
     );
     camera.position.z = 25;
 
-    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+    let renderer: THREE.WebGLRenderer;
+    try {
+      renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true, powerPreference: 'high-performance' });
+    } catch (e) {
+      console.warn('[Three.js] WebGL context initialization fallback:', e);
+      return;
+    }
+
     renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
     container.appendChild(renderer.domElement);
 
     // Starry Particles & Golden Embers
@@ -59,7 +69,7 @@ export const BackgroundScene: React.FC<BackgroundSceneProps> = ({ theme = 'night
     geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
     geometry.setAttribute('scale', new THREE.BufferAttribute(scales, 1));
 
-    // Particle Material with Soft Glow
+    // Particle Texture with Soft Glow
     const canvas = document.createElement('canvas');
     canvas.width = 64;
     canvas.height = 64;
@@ -94,24 +104,26 @@ export const BackgroundScene: React.FC<BackgroundSceneProps> = ({ theme = 'night
     let currentMouseY = 0;
 
     const handleMouseMove = (e: MouseEvent) => {
-      targetMouseX = (e.clientX / window.innerWidth - 0.5) * 2;
-      targetMouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+      targetMouseX = (e.clientX / Math.max(window.innerWidth, 1) - 0.5) * 2;
+      targetMouseY = (e.clientY / Math.max(window.innerHeight, 1) - 0.5) * 2;
     };
     window.addEventListener('mousemove', handleMouseMove);
 
     // Resize Handler
     const handleResize = () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
+      if (isDisposed) return;
+      camera.aspect = window.innerWidth / Math.max(window.innerHeight, 1);
       camera.updateProjectionMatrix();
       renderer.setSize(window.innerWidth, window.innerHeight);
     };
     window.addEventListener('resize', handleResize);
 
     // Animation Loop
-    let animationId: number;
-    let clock = new THREE.Clock();
+    const clock = new THREE.Clock();
 
     const animate = () => {
+      if (isDisposed) return;
+
       const elapsedTime = clock.getElapsedTime();
 
       // Smooth mouse parallax
@@ -125,11 +137,9 @@ export const BackgroundScene: React.FC<BackgroundSceneProps> = ({ theme = 'night
       // Gentle floating swirl of magical particles
       const posArr = geometry.attributes.position.array as Float32Array;
       for (let i = 0; i < particleCount; i++) {
-        // Upward floating motion with subtle wave
         posArr[i * 3 + 1] += 0.02 * (scales[i] * 0.5);
         posArr[i * 3] += Math.sin(elapsedTime * 0.5 + i) * 0.01;
 
-        // Reset if reached top
         if (posArr[i * 3 + 1] > 20) {
           posArr[i * 3 + 1] = -20;
           posArr[i * 3] = (Math.random() - 0.5) * 60;
@@ -146,12 +156,15 @@ export const BackgroundScene: React.FC<BackgroundSceneProps> = ({ theme = 'night
     animate();
 
     return () => {
+      isDisposed = true;
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('resize', handleResize);
       cancelAnimationFrame(animationId);
-      if (container.contains(renderer.domElement)) {
+
+      if (container && renderer.domElement && container.contains(renderer.domElement)) {
         container.removeChild(renderer.domElement);
       }
+
       geometry.dispose();
       material.dispose();
       texture.dispose();
@@ -181,3 +194,5 @@ export const BackgroundScene: React.FC<BackgroundSceneProps> = ({ theme = 'night
     </div>
   );
 };
+
+export default BackgroundScene;
