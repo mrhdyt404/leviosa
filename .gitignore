@@ -1,0 +1,24 @@
+# Binaries
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+leviosa-server
+backend/leviosa-server
+
+# Test binary
+*.test
+
+# Output of the go coverage tool
+*.out
+
+# Environment variables
+.env
+backend/.env
+
+# IDE & OS files
+.DS_Store
+.idea/
+.vscode/
+*.swp
