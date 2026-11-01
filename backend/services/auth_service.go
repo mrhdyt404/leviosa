@@ -6,6 +6,7 @@ import (
 	"encoding/hex"
 	"errors"
 	"fmt"
+	"regexp"
 	"strings"
 	"time"
 
@@ -29,10 +30,41 @@ func NewAuthService(db *sql.DB, cfg *config.Config) *AuthService {
 	}
 }
 
+var (
+	emailRegex    = regexp.MustCompile(`^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$`)
+	usernameRegex = regexp.MustCompile(`^[a-zA-Z0-9_]{3,30}$`)
+)
+
 // Register registers a new user with name, username, email, password, and phone
 func (s *AuthService) Register(req *models.RegisterRequest) (*models.User, error) {
-	if req.Username == "" || req.Email == "" || req.Password == "" {
+	req.Name = strings.TrimSpace(req.Name)
+	req.Username = strings.ToLower(strings.TrimSpace(req.Username))
+	req.Email = strings.ToLower(strings.TrimSpace(req.Email))
+
+	if req.Name == "" || req.Username == "" || req.Email == "" || req.Password == "" {
 		return nil, errors.New("nama, username, email, dan password wajib diisi")
+	}
+
+	if len(req.Name) > 100 {
+		return nil, errors.New("nama maksimal 100 karakter")
+	}
+
+	if !usernameRegex.MatchString(req.Username) {
+		return nil, errors.New("username harus 3-30 karakter alfanumerik (hanya huruf, angka, dan underscore)")
+	}
+
+	if !emailRegex.MatchString(req.Email) {
+		return nil, errors.New("format alamat email tidak valid")
+	}
+
+	// Password strength policy (min 8 chars, must contain letter and number)
+	if len(req.Password) < 8 {
+		return nil, errors.New("password minimal terdiri dari 8 karakter")
+	}
+	hasLetter := strings.ContainsAny(req.Password, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
+	hasDigit := strings.ContainsAny(req.Password, "0123456789")
+	if !hasLetter || !hasDigit {
+		return nil, errors.New("password harus mengandung kombinasi huruf dan angka")
 	}
 
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(req.Password), bcrypt.DefaultCost)

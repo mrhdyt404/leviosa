@@ -27,10 +27,11 @@ type sidobePayload struct {
 }
 
 type sidobeResponse struct {
-	IsSuccess bool            `json:"is_success"`
-	Message   string          `json:"message"`
-	ErrorCode string          `json:"error_code,omitempty"`
-	Data      json.RawMessage `json:"data,omitempty"`
+	IsSuccess bool                   `json:"is_success"`
+	Message   string                 `json:"message"`
+	ErrorCode string                 `json:"error_code,omitempty"`
+	Error     map[string]interface{} `json:"error,omitempty"`
+	Data      json.RawMessage        `json:"data,omitempty"`
 }
 
 func NewSidobeService(cfg *config.Config) *SidobeService {
@@ -43,19 +44,28 @@ func NewSidobeService(cfg *config.Config) *SidobeService {
 	}
 }
 
-// CleanPhoneNumber normalizes Indonesian phone number to E.164 without '+' (e.g. 0812... -> 62812...)
+// CleanPhoneNumber normalizes phone number to strict E.164 with leading '+' (e.g. 0812... -> +62812...)
 func CleanPhoneNumber(phone string) string {
 	cleaned := strings.TrimSpace(phone)
 	cleaned = strings.ReplaceAll(cleaned, "-", "")
 	cleaned = strings.ReplaceAll(cleaned, " ", "")
-	cleaned = strings.ReplaceAll(cleaned, "+", "")
+	cleaned = strings.ReplaceAll(cleaned, "(", "")
+	cleaned = strings.ReplaceAll(cleaned, ")", "")
+
+	// Remove any leading '+' temporarily for clean parsing
+	cleaned = strings.TrimPrefix(cleaned, "+")
 
 	if strings.HasPrefix(cleaned, "08") {
 		cleaned = "628" + cleaned[2:]
 	} else if strings.HasPrefix(cleaned, "8") {
 		cleaned = "62" + cleaned
 	}
-	return cleaned
+
+	if cleaned == "" {
+		return ""
+	}
+
+	return "+" + cleaned
 }
 
 // SendMessage dispatches a WhatsApp message via Sidobe Cloud API
@@ -107,7 +117,12 @@ func (s *SidobeService) SendMessage(phone, message string) (*sidobeResponse, err
 	}
 
 	if resp.StatusCode >= 400 {
-		return &sidobeResp, fmt.Errorf("sidobe error (%d): %s", resp.StatusCode, sidobeResp.Message)
+		errDetail := sidobeResp.Message
+		if len(sidobeResp.Error) > 0 {
+			errBytes, _ := json.Marshal(sidobeResp.Error)
+			errDetail = fmt.Sprintf("%s (%s)", sidobeResp.Message, string(errBytes))
+		}
+		return &sidobeResp, fmt.Errorf("sidobe error (%d): %s", resp.StatusCode, errDetail)
 	}
 
 	return &sidobeResp, nil

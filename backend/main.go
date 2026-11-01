@@ -21,6 +21,7 @@ func main() {
 	log.Println("=====================================================")
 	log.Println("  LEVIOSA - AI Personal Assistant Backend Server")
 	log.Println("  \"You don't need more time. You need a smarter way to live it.\"")
+	log.Println("  [ADVANCE SECURITY ENABLED: OWASP Headers + Rate Limiter + Session Guard]")
 	log.Println("=====================================================")
 
 	cfg := config.LoadConfig()
@@ -69,6 +70,15 @@ func main() {
 		webAuthnHandler = handlers.NewWebAuthnHandler(webAuthnService, authService, activityService)
 	}
 
+	// Advance Security: Multi-tier IP Rate Limiters
+	// General: 5 req/s, burst 30
+	generalLimiter := middleware.NewIPRateLimiter(5.0, 30.0)
+	generalRateMW := middleware.RateLimitMiddleware(generalLimiter)
+
+	// Strict Auth & WA Limiter: 0.5 req/s (max 1 req every 2 seconds, burst 6)
+	strictAuthLimiter := middleware.NewIPRateLimiter(0.5, 6.0)
+	strictRateMW := middleware.RateLimitMiddleware(strictAuthLimiter)
+
 	// Setup Router
 	mux := http.NewServeMux()
 
@@ -80,37 +90,37 @@ func main() {
 			dbStatus = "waiting_setup (run init_db.sql)"
 		}
 		json.NewEncoder(w).Encode(map[string]interface{}{
-			"status":      "ok",
-			"app":         "Leviosa AI Assistant Backend",
-			"version":     "1.0.0",
-			"database":    dbStatus,
-			"environment": cfg.AppEnv,
-			"sidobe_url":  cfg.SidobeAPIURL,
-			"server_time": time.Now().Format(time.RFC3339),
+			"status":           "ok",
+			"app":              "Leviosa AI Assistant Backend",
+			"version":          "1.0.0",
+			"database":         dbStatus,
+			"advance_security": "active (OWASP Headers, RateLimiter, TokenBucket, MaxBytes)",
+			"environment":      cfg.AppEnv,
+			"sidobe_url":       cfg.SidobeAPIURL,
+			"server_time":      time.Now().Format(time.RFC3339),
 		})
 	})
 
-	// Public Auth Endpoints
-	mux.HandleFunc("POST /api/auth/register", authHandler.Register)
-	mux.HandleFunc("POST /api/auth/login", authHandler.Login)
-	mux.HandleFunc("POST /api/auth/google", authHandler.GoogleLogin)
+	// Public Auth Endpoints with Strict Rate Limiting
+	mux.Handle("POST /api/auth/register", strictRateMW(http.HandlerFunc(authHandler.Register)))
+	mux.Handle("POST /api/auth/login", strictRateMW(http.HandlerFunc(authHandler.Login)))
+	mux.Handle("POST /api/auth/google", strictRateMW(http.HandlerFunc(authHandler.GoogleLogin)))
 
 	// Public Calendar Endpoints (Active Realtime Indonesian Calendar)
-	mux.HandleFunc("GET /api/calendar/holidays", calendarHandler.GetHolidays)
-	mux.HandleFunc("GET /api/calendar/today", calendarHandler.GetTodayInfo)
+	mux.Handle("GET /api/calendar/holidays", generalRateMW(http.HandlerFunc(calendarHandler.GetHolidays)))
+	mux.Handle("GET /api/calendar/today", generalRateMW(http.HandlerFunc(calendarHandler.GetTodayInfo)))
 
 	// Public Weather Endpoints (Weather Intelligence)
-	mux.HandleFunc("GET /api/weather", weatherHandler.GetWeather)
+	mux.Handle("GET /api/weather", generalRateMW(http.HandlerFunc(weatherHandler.GetWeather)))
 
-	// WhatsApp Testing Endpoint (Sidobe)
-	mux.HandleFunc("POST /api/reminders/test", reminderHandler.TestWhatsApp)
+	// WhatsApp Testing Endpoint (Strictly Rate Limited to prevent spam)
+	mux.Handle("POST /api/reminders/test", strictRateMW(http.HandlerFunc(reminderHandler.TestWhatsApp)))
 
 	// AI Assistant Chat & Planning
-	mux.HandleFunc("POST /api/ai/chat", aiHandler.Chat)
-	mux.HandleFunc("POST /api/ai/evaluate", aiHandler.Evaluate)
+	mux.Handle("POST /api/ai/chat", generalRateMW(http.HandlerFunc(aiHandler.Chat)))
 
-	// Protected Endpoints
-	authMW := middleware.AuthMiddleware(cfg)
+	// Protected Endpoints (Stateful DB Session Check + JWT)
+	authMW := middleware.AuthMiddleware(cfg, db)
 
 	mux.Handle("GET /api/auth/me", authMW(http.HandlerFunc(authHandler.Me)))
 	mux.Handle("POST /api/auth/logout", authMW(http.HandlerFunc(authHandler.Logout)))
@@ -127,8 +137,18 @@ func main() {
 	mux.Handle("GET /api/reminders", authMW(http.HandlerFunc(reminderHandler.GetReminders)))
 	mux.Handle("DELETE /api/reminders/", authMW(http.HandlerFunc(reminderHandler.CancelReminders)))
 
-	// Wrap Global Middleware: Logger -> CORS -> Router
-	handler := middleware.Logger(middleware.CORS(mux))
+	mux.Handle("POST /api/ai/evaluate", authMW(http.HandlerFunc(aiHandler.Evaluate)))
+
+	// Global Security Layer:
+	// 1. HTTP Logger
+	// 2. Hardened CORS
+	// 3. OWASP Security Headers & Max Body Payload Size (1 MB)
+	allowedOrigins := []string{cfg.AppURL, "http://localhost:8080", "http://127.0.0.1:8080"}
+	handler := middleware.Logger(
+		middleware.AdvancedCORS(allowedOrigins)(
+			middleware.SecurityHeaders(1048576)(mux),
+		),
+	)
 
 	server := &http.Server{
 		Addr:         ":" + cfg.Port,
