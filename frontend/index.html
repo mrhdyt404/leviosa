@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leviosa — AI Personal Assistant & Smart Productivity Ecosystem</title>
+    <meta name="description" content="Leviosa: Smart Productivity Ecosystem inspired by Hogwarts magic. Manage your schedules, tasks, WhatsApp reminders via Sidobe, Indonesian calendar, and weather intelligence with proactive AI.">
+    <meta name="theme-color" content="#060913">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+    <!-- Main Application Container -->
+    <div class="app-container">
+
+        <!-- =========================================================
+             SIDEBAR NAVIGATION
+             ========================================================= -->
+        <aside class="sidebar">
+            <!-- Brand / Logo -->
+            <a href="#" class="brand-container">
+                <svg class="brand-feather-icon" viewBox="0 0 64 64" fill="none">
+                    <path d="M56 8 C40 12 24 28 16 48 C20 44 26 42 32 40 C38 38 48 26 56 8 Z" fill="url(#featherGold)" filter="drop-shadow(0 0 6px #ffd700)"/>
+                    <path d="M16 48 C14 52 10 58 6 62 C10 58 14 54 16 48 Z" fill="#ffd700"/>
+                    <path d="M28 36 C34 30 42 20 48 14" stroke="#fff" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+                    <defs>
+                        <linearGradient id="featherGold" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#fff8db"/>
+                            <stop offset="50%" stop-color="#ffd700"/>
+                            <stop offset="100%" stop-color="#b8860b"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <div class="brand-text">
+                    <h1>Leviosa</h1>
+                    <span class="brand-tagline">Elevate Your Life.</span>
+                </div>
+            </a>
+
+            <!-- Navigation Links -->
+            <ul class="nav-menu">
+                <li><a href="#" class="nav-item active"><span>🏠</span> Dashboard</a></li>
+                <li><a href="#" class="nav-item" onclick="window.leviosaApp.showToast('Kalender Aktif', 'Kalender nasional & cuti bersama Indonesia tersinkronisasi realtime.')"><span>📅</span> Calendar</a></li>
+                <li><a href="#" class="nav-item" onclick="window.leviosaApp.openScheduleModal()"><span>📋</span> Tasks</a></li>
+                <li><a href="#" class="nav-item"><span>📁</span> Projects</a></li>
+                <li><a href="#" class="nav-item" onclick="window.leviosaApp.showToast('Analitik', 'Evaluasi konsistensi & waktu produktif mingguan tersedia.')"><span>📈</span> Analytics</a></li>
+                <li><a href="#" class="nav-item" onclick="document.getElementById('chat-input-field').focus()"><span>✨</span> AI Assistant</a></li>
+                <li><a href="#" class="nav-item" onclick="window.leviosaApp.showToast('Cuaca', 'Prediksi cuaca terintegrasi untuk pencegahan bentrok jadwal outdoor.')"><span>🌤️</span> Weather</a></li>
+                <li><a href="#" class="nav-item" onclick="window.leviosaApp.openWhatsAppTestModal()"><span>⚙️</span> Settings</a></li>
+                <li><a href="#" class="nav-item"><span>👤</span> Profile</a></li>
+                <li><a href="#" class="nav-item" style="color: #ef4444;" onclick="window.leviosaApp.showToast('Logout', 'Sesi login Anda tersimpan aman.')"><span>🚪</span> Logout</a></li>
+            </ul>
+
+            <!-- Hogwarts Crest & Motto -->
+            <div class="sidebar-footer">
+                <svg class="hogwarts-crest" viewBox="0 0 100 100" fill="none">
+                    <!-- Ornate Shield Shield -->
+                    <path d="M50 5 L88 22 C88 58 72 82 50 95 C28 82 12 58 12 22 Z" fill="#121829" stroke="url(#crestGold)" stroke-width="3"/>
+                    <path d="M50 12 L80 26 C80 54 67 74 50 85 C33 74 20 54 20 26 Z" fill="rgba(212, 175, 55, 0.08)" stroke="#d4af37" stroke-width="1.2"/>
+                    <!-- Letter H -->
+                    <text x="50" y="58" font-family="'Cinzel Decorative', serif" font-size="34" font-weight="900" fill="url(#crestGold)" text-anchor="middle">H</text>
+                    <circle cx="50" cy="50" r="32" stroke="rgba(255, 215, 0, 0.3)" stroke-dasharray="3 3" fill="none"/>
+                    <defs>
+                        <linearGradient id="crestGold" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#fff0b3"/>
+                            <stop offset="50%" stop-color="#ffd700"/>
+                            <stop offset="100%" stop-color="#996515"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <p class="motto-text">
+                    "You don't need more time.<br>
+                    You need a smarter way to live it."
+                </p>
+            </div>
+        </aside>
+
+        <!-- =========================================================
+             MAIN CONTENT
+             ========================================================= -->
+        <main class="main-content">
+
+            <!-- Top Header Bar -->
+            <header class="top-header">
+                <!-- User Greeting Pill -->
+                <div class="user-greeting-pill">
+                    <div class="avatar-wrapper">
+                        <!-- Harry Potter Portrait Avatar -->
+                        <img src="https://images.unsplash.com/photo-1544717305-2782549b5136?w=160&auto=format&fit=crop&q=80" alt="Arkana" class="avatar-img">
+                    </div>
+                    <div class="greeting-text">
+                        <h2>Good Morning, <span>Arkana Pratama!</span></h2>
+                        <p class="greeting-quote">"Dream big, plan well, and let Leviosa lift the rest."</p>
+                    </div>
+                </div>
+
+                <!-- Right Header Actions -->
+                <div class="header-actions">
+                    <!-- Search Input -->
+                    <div class="search-box">
+                        <input type="text" id="global-search-input" placeholder="Search anything... (⌘ + K)">
+                        <span class="search-shortcut">⌘ K</span>
+                    </div>
+
+                    <!-- Live Indonesian Date & Hijriah Widget -->
+                    <div class="header-info-widget">
+                        <div class="weather-header-pill">
+                            <span style="font-size: 1.3rem;">⛅</span>
+                            <div>
+                                <div class="temp" id="header-weather-temp">28°C</div>
+                                <div style="font-size: 0.72rem; color: var(--text-muted);" id="header-weather-condition">Partly Cloudy</div>
+                            </div>
+                        </div>
+                        <div class="date-header-pill">
+                            <span class="day-date" id="header-date-text">Senin, 10 Nov 2026</span>
+                            <span class="hijriah-date" id="header-hijriah-text">15 Jumadil Awal 1447 H</span>
+                        </div>
+                    </div>
+
+                    <!-- Notification Button -->
+                    <button class="icon-btn" title="Notifikasi" onclick="window.leviosaApp.showToast('Pengingat Jadwal', 'Anda memiliki jadwal Meeting Proyek pukul 08:00 WIB.')">
+                        🔔
+                        <span class="notif-badge">3</span>
+                    </button>
+
+                    <!-- Theme Switcher Button -->
+                    <button class="icon-btn" title="Ganti Tema (Hogwarts / Winter Magic)" onclick="window.leviosaApp.toggleTheme()">
+                        ✨
+                    </button>
+                </div>
+            </header>
+
+            <!-- =====================================================
+                 DASHBOARD GRID
+                 ===================================================== -->
+            <div class="dashboard-grid">
+
+                <!-- CARD 1: Jadwal Hari Ini -->
+                <section class="glass-card">
+                    <div class="card-header">
+                        <h3 class="card-title"><span class="card-title-icon">📜</span> Jadwal Hari Ini</h3>
+                        <a href="#" class="card-link" onclick="window.leviosaApp.openScheduleModal()">Lihat Semua →</a>
+                    </div>
+                    <div class="schedule-list" id="today-schedule-list">
+                        <!-- Populated dynamically by app.js from IndexedDB -->
+                    </div>
+                </section>
+
+                <!-- CARD 2: Agenda Minggu Ini & Floating Spellbook -->
+                <section class="glass-card">
+                    <div class="card-header">
+                        <h3 class="card-title"><span class="card-title-icon">📖</span> Agenda Minggu Ini</h3>
+                        <a href="#" class="card-link" onclick="window.leviosaApp.showToast('Agenda Mingguan', 'Tersedia 18 jam alokasi fokus minggu ini.')">Lihat Detail →</a>
+                    </div>
+
+                    <!-- Horizontal Week Strip -->
+                    <div class="week-strip" id="week-strip-container">
+                        <!-- Populated dynamically by app.js -->
+                    </div>
+
+                    <!-- Centerpiece Graphic: Floating Open Spellbook with golden magical dust -->
+                    <div class="spellbook-illustration-box">
+                        <svg class="center-spellbook" viewBox="0 0 200 120" fill="none">
+                            <!-- Golden Magic Swirl Behind Book -->
+                            <path d="M10 90 Q 60 20 100 60 T 190 30" stroke="url(#swirlGold)" stroke-width="3" stroke-linecap="round" opacity="0.8"/>
+                            <path d="M30 100 Q 80 40 120 70 T 180 50" stroke="#fff" stroke-width="1.2" stroke-linecap="round" opacity="0.6"/>
+                            <!-- Left Pages -->
+                            <path d="M100 80 C70 78 30 65 15 50 C25 40 70 50 100 58 Z" fill="#fff9eb" stroke="#d4af37" stroke-width="1.5"/>
+                            <path d="M100 82 C72 80 32 67 18 52 C27 43 71 52 100 60 Z" fill="#fdf3dc" opacity="0.85"/>
+                            <!-- Right Pages -->
+                            <path d="M100 80 C130 78 170 65 185 50 C175 40 130 50 100 58 Z" fill="#fff9eb" stroke="#d4af37" stroke-width="1.5"/>
+                            <path d="M100 82 C128 80 168 67 182 52 C173 43 129 52 100 60 Z" fill="#fdf3dc" opacity="0.85"/>
+                            <!-- Spine & Leather -->
+                            <ellipse cx="100" cy="80" rx="4" ry="12" fill="#5c2415"/>
+                            <!-- Glowing Stars -->
+                            <circle cx="50" cy="35" r="2.5" fill="#ffd700" filter="drop-shadow(0 0 4px #ffd700)"/>
+                            <circle cx="150" cy="25" r="2" fill="#fff" filter="drop-shadow(0 0 4px #fff)"/>
+                            <circle cx="170" cy="75" r="2" fill="#ffd700"/>
+                            <circle cx="30" cy="70" r="1.8" fill="#ffd700"/>
+                            <defs>
+                                <linearGradient id="swirlGold" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#fff"/>
+                                    <stop offset="40%" stop-color="#ffd700"/>
+                                    <stop offset="100%" stop-color="#b8860b"/>
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                </section>
+
+                <!-- CARD 5: Leviosa Companion (AI Assistant Chat) -->
+                <section class="glass-card companion-card">
+                    <div class="card-header">
+                        <div class="companion-header-meta">
+                            <span class="status-dot"></span>
+                            <h3 class="card-title">Leviosa Companion</h3>
+                        </div>
+                        <span style="font-size: 0.76rem; color: #10b981; font-weight: 600;">● Online</span>
+                    </div>
+
+                    <!-- Chat Messages Stream -->
+                    <div class="chat-messages" id="chat-messages-container">
+                        <!-- Populated dynamically by app.js -->
+                    </div>
+
+                    <!-- Quick Prompt Suggestions -->
+                    <div class="quick-prompts">
+                        <button class="quick-prompt-chip" data-prompt="Buatkan jadwal produktif untuk besok">
+                            <span>✨</span> Buatkan jadwal untuk besok
+                        </button>
+                        <button class="quick-prompt-chip" data-prompt="Apa saja kegiatan saya hari ini?">
+                            <span>📅</span> Apa saja kegiatan saya hari ini?
+                        </button>
+                        <button class="quick-prompt-chip" data-prompt="Evaluasi produktivitas minggu ini">
+                            <span>📊</span> Evaluasi produktivitas minggu ini
+                        </button>
+                        <button class="quick-prompt-chip" data-prompt="Cek prakiraan cuaca besok dan potensi hujan">
+                            <span>🌤️</span> Cek cuaca besok
+                        </button>
+                    </div>
+
+                    <!-- Chat Input Bar -->
+                    <form id="chat-form" class="chat-input-wrapper">
+                        <input type="text" id="chat-input-field" placeholder="Tanyakan sesuatu pada asisten Anda..." autocomplete="off">
+                        <button type="submit" class="chat-send-btn" title="Kirim">
+                            ➤
+                        </button>
+                    </form>
+                </section>
+
+                <!-- CARD 3: Ringkasan Produktivitas -->
+                <section class="glass-card">
+                    <div class="card-header">
+                        <h3 class="card-title"><span class="card-title-icon">📊</span> Ringkasan Produktivitas</h3>
+                        <a href="#" class="card-link" onclick="window.leviosaApp.showToast('Laporan Produktivitas', 'Konsistensi Anda meningkat 12% dibandingkan minggu lalu!')">Lihat Laporan →</a>
+                    </div>
+                    <div class="productivity-body">
+                        <!-- SVG Circular Progress Gauge -->
+                        <div class="gauge-box">
+                            <svg class="circular-gauge" width="110" height="110" viewBox="0 0 100 100">
+                                <circle class="gauge-bg" cx="50" cy="50" r="45"></circle>
+                                <circle class="gauge-progress" cx="50" cy="50" r="45"></circle>
+                                <defs>
+                                    <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#10b981"/>
+                                        <stop offset="60%" stop-color="#06b6d4"/>
+                                        <stop offset="100%" stop-color="#ffd700"/>
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+                            <div class="gauge-center-text">
+                                <div class="gauge-percent" id="stat-completion-percent">87%</div>
+                                <div class="gauge-label">Target Mingguan</div>
+                            </div>
+                        </div>
+
+                        <!-- Metrics List -->
+                        <div class="metrics-list">
+                            <div class="metric-row">
+                                <div class="metric-icon done">✓</div>
+                                <div class="metric-data">
+                                    <h4 id="stat-completed-tasks">32 / 37</h4>
+                                    <p>Tugas Selesai</p>
+                                </div>
+                            </div>
+                            <div class="metric-row">
+                                <div class="metric-icon time">⏱</div>
+                                <div class="metric-data">
+                                    <h4 id="stat-productive-hours">28.5 jam</h4>
+                                    <p>Waktu Produktif</p>
+                                </div>
+                            </div>
+                            <div class="metric-row">
+                                <div class="metric-icon score">★</div>
+                                <div class="metric-data">
+                                    <h4 id="stat-consistency-score">91 / 100</h4>
+                                    <p>Skor Konsistensi</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- CARD 4: Prediksi Cuaca -->
+                <section class="glass-card">
+                    <div class="card-header">
+                        <h3 class="card-title"><span class="card-title-icon">🌦️</span> Prediksi Cuaca</h3>
+                        <a href="#" class="card-link" onclick="window.leviosaApp.showToast('Cuaca Indonesia', 'Data realtime Open-Meteo & BMKG aktif.')">Lihat Detail →</a>
+                    </div>
+                    <div class="weather-hero">
+                        <div class="weather-icon-large">🌧️</div>
+                        <div class="weather-main-info">
+                            <h3 id="card-weather-temp">26°C</h3>
+                            <p id="card-weather-condition">Hujan Ringan</p>
+                        </div>
+                        <div class="weather-rain-pill" id="card-weather-rain">
+                            🌧️ 60%
+                        </div>
+                    </div>
+                    <!-- 5-day Mini Forecast Columns -->
+                    <div class="forecast-days" id="forecast-days-container">
+                        <!-- Populated dynamically by app.js -->
+                    </div>
+                </section>
+
+            </div>
+
+            <!-- =====================================================
+                 BOTTOM ACTION BAR
+                 ===================================================== -->
+            <div class="bottom-actions">
+                <button class="ornate-action-btn" onclick="window.leviosaApp.openScheduleModal()">
+                    <span>✦</span> Tambah Jadwal
+                </button>
+                <button class="ornate-action-btn" onclick="window.leviosaApp.openScheduleModal()">
+                    <span>✦</span> Tambah Tugas
+                </button>
+                <button class="ornate-action-btn" onclick="window.leviosaApp.showToast('Kalender', 'Sinkronisasi Google Calendar dan Hari Libur Indonesia aktif.')">
+                    <span>📅</span> Lihat Kalender
+                </button>
+                <button class="ornate-action-btn" onclick="window.leviosaApp.showToast('Statistik', 'Konsistensi 91/100, 32 tugas terselesaikan minggu ini.')">
+                    <span>📊</span> Statistik
+                </button>
+                <button class="ornate-action-btn" onclick="window.leviosaApp.openWhatsAppTestModal()">
+                    <span>📱</span> WhatsApp Notifikasi (Sidobe)
+                </button>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- =========================================================
+         FLOATING WHATSAPP NOTIFICATION TOAST (Live Demonstration)
+         ========================================================= -->
+    <div class="whatsapp-toast" id="floating-toast">
+        <div class="wa-toast-icon">📱</div>
+        <div class="wa-toast-content">
+            <div class="wa-toast-header">
+                <h5 id="toast-title">WhatsApp Reminder</h5>
+                <span id="toast-time">1 mnt lalu</span>
+            </div>
+            <p class="wa-toast-body" id="toast-body">
+                Selamat pagi! ☀️<br>
+                Anda memiliki jadwal "Meeting Proyek SIMOLI" pukul 08.00 hari ini.
+            </p>
+        </div>
+        <button id="toast-close-btn" style="background:none; border:none; color:var(--text-muted); cursor:pointer; font-size:1rem;">✕</button>
+    </div>
+
+    <!-- =========================================================
+         MODAL: TAMBAH JADWAL BARU
+         ========================================================= -->
+    <div class="modal-overlay" id="schedule-modal">
+        <div class="parchment-modal">
+            <div class="modal-header">
+                <h3 class="modal-title">✦ Atur Jadwal Baru</h3>
+                <button class="modal-close" onclick="window.leviosaApp.closeScheduleModal()">✕</button>
+            </div>
+            <form id="schedule-form">
+                <div class="form-group">
+                    <label>Nama Aktivitas</label>
+                    <input type="text" id="input-sch-title" class="form-control" placeholder="Contoh: Meeting Evaluasi Laporan" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Kategori</label>
+                        <select id="input-sch-category" class="form-control">
+                            <option value="Pekerjaan">💼 Pekerjaan</option>
+                            <option value="Pribadi">🏃 Pribadi</option>
+                            <option value="Belajar">📖 Belajar</option>
+                            <option value="Kesehatan">🧘 Kesehatan</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Prioritas</label>
+                        <select id="input-sch-priority" class="form-control">
+                            <option value="tinggi">🔴 Tinggi / Urgent</option>
+                            <option value="sedang" selected>🟡 Sedang</option>
+                            <option value="rendah">🟢 Rendah</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Tanggal</label>
+                        <input type="date" id="input-sch-date" class="form-control" value="2026-11-02" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Lokasi</label>
+                        <input type="text" id="input-sch-location" class="form-control" placeholder="Contoh: Ruang Meeting / Outdoor">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Waktu Mulai</label>
+                        <input type="time" id="input-sch-start" class="form-control" value="09:00" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Waktu Selesai</label>
+                        <input type="time" id="input-sch-end" class="form-control" value="10:30" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Pengingat WhatsApp Otomatis (Sidobe Cloud API)</label>
+                    <div class="checkbox-group">
+                        <label class="check-pill"><input type="checkbox" id="rem-h7"> H-7</label>
+                        <label class="check-pill"><input type="checkbox" id="rem-h1" checked> H-1 (Besok)</label>
+                        <label class="check-pill"><input type="checkbox" id="rem-h1h" checked> H-1 Jam</label>
+                        <label class="check-pill"><input type="checkbox" id="rem-harih" checked> Hari H</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Catatan Persiapan</label>
+                    <textarea id="input-sch-notes" class="form-control" rows="2" placeholder="Persiapkan materi presentasi dan dokumen terkait..."></textarea>
+                </div>
+                <button type="submit" class="ornate-action-btn" style="width: 100%; justify-content: center; margin-top: 10px;">
+                    Simpan Jadwal & Pasang Pengingat
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- =========================================================
+         MODAL: WHATSAPP SIDOBE CONFIG & LIVE TEST
+         ========================================================= -->
+    <div class="modal-overlay" id="whatsapp-modal">
+        <div class="parchment-modal">
+            <div class="modal-header">
+                <h3 class="modal-title">📱 WhatsApp Cloud API (Sidobe)</h3>
+                <button class="modal-close" onclick="window.leviosaApp.closeWhatsAppTestModal()">✕</button>
+            </div>
+            <div style="font-size: 0.84rem; color: var(--text-parchment); margin-bottom: 16px; line-height: 1.45;">
+                Integrasi resmi **Sidobe Cloud API** untuk mengirim notifikasi pengingat otomatis pada **H-7, H-1, H-1 Jam, dan Hari H**.
+            </div>
+            <div class="form-group">
+                <label>Nomor Telepon WhatsApp</label>
+                <input type="tel" id="input-wa-phone" class="form-control" value="081364393590" placeholder="081364393590 atau +628...">
+            </div>
+            <div class="form-group">
+                <label>Pesan Uji Coba</label>
+                <textarea id="input-wa-msg" class="form-control" rows="3">✨ *LEVIOSA NOTIFICATION TEST* ✨
+
+Halo dari Leviosa AI Personal Assistant!
+Pengingat otomatis via Sidobe telah terhubung dengan jadwal produktivitas Anda.
+
+_"You don't need more time. You need a smarter way to live it."_</textarea>
+            </div>
+            <div id="wa-test-status" style="margin-bottom: 14px; font-size: 0.85rem;"></div>
+            <button type="button" class="ornate-action-btn" style="width: 100%; justify-content: center;" onclick="window.leviosaApp.sendTestWhatsAppMessage()">
+                Kirim Notifikasi Uji Coba Sekarang
+            </button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/cursor.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

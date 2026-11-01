@@ -139,6 +139,10 @@ func main() {
 
 	mux.Handle("POST /api/ai/evaluate", authMW(http.HandlerFunc(aiHandler.Evaluate)))
 
+	// Serve Frontend Static Files (HTML, CSS, JS, Assets)
+	frontendFS := http.FileServer(http.Dir("../frontend"))
+	mux.Handle("/", frontendFS)
+
 	// Global Security Layer:
 	// 1. HTTP Logger
 	// 2. Hardened CORS
