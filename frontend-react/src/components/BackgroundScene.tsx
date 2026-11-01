@@ -159,7 +159,7 @@ export const BackgroundScene: React.FC<BackgroundSceneProps> = ({ theme = 'night
     };
   }, []);
 
-  const bgImage = theme === 'winter' ? '/assets/hogwarts_winter_bg.jpg' : '/assets/hogwarts_night_bg.jpg';
+  const bgImage = theme === 'winter' ? '/assets/hogwarts_winter_bg.jpg' : '/assets/hogwarts_night_bg.png';
 
   return (
     <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none select-none">

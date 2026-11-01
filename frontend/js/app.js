@@ -453,7 +453,7 @@ class LeviosaApp {
             document.body.style.backgroundImage = `
                 radial-gradient(circle at 50% 20%, rgba(212, 175, 55, 0.08) 0%, transparent 60%),
                 linear-gradient(rgba(6, 9, 19, 0.72), rgba(6, 9, 19, 0.88)),
-                url('../assets/hogwarts_night_bg.jpg')
+                url('../assets/hogwarts_night_bg.png')
             `;
             this.showToast('Tema Diganti', 'Tema Malam Hogwarts (Midnight Magic) aktif!');
         }
